@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CMP MCQ</title>
+    <meta
+      name="description"
+      content="The Computer Quiz App is perfect for both beginners and advanced users, offering multiple levels of difficulty to suit all levels of expertise. Whether you're a seasoned IT professional or just starting out in the world of technology, there's something for everyone."
+    />
+    <meta name="author" content="JavaScript Ninja" />
+    <meta name="robots" content="index, follow" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      #quiz {
+        margin: 50px auto;
+        width: 500px;
+        padding: 30px;
+        border: 2px solid #333;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      #question {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      label {
+        font-size: 18px;
+        color: #333;
+      }
+
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      button:hover {
+        background-color: #111;
+      }
+
+      #feedback {
+        font-size: 20px;
+        margin-top: 20px;
+        color: #333;
+      }
+
+      #feedback p {
+        margin: 0;
+        padding: 0;
+      }
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>COMPUTER MCQ</h1>
+    <div id="quiz">
+      <h2 id="question"></h2>
+      <ul id="choices"></ul>
+      <button onclick="checkAnswer()">Check Answer</button>
+      <div id="feedback"></div>
+    </div>
+    <script>
+      let questions = [
+        {
+          question: "Who is the father of Computers?",
+          choices: [
+            "James Gosling",
+            "Charles Babbage",
+            "Dennis Ritchie",
+            "Bjarne Stroustrup",
+          ],
+          answer: "Charles Babbage",
+        },
+        {
+          question: "What is the full form of CPU",
+          choices: [
+            "Computer Processing Unit",
+            "Computer Principle Unit",
+            "Central Processing Unit",
+            "Control Processing Unit",
+          ],
+          answer: "Central Processing Unit",
+        },
+        {
+          question:
+            "Which of the following computer language is written in binary codes only?",
+          choices: ["pascal", "machine language", "C", "C#"],
+          answer: "machine language",
+        },
+        {
+          question: "Which of the following is the brain of the computer?",
+          choices: [
+            "Central Processing Unit",
+            "Memory",
+            "Arithmetic and Logic unit",
+            "Control Unit",
+          ],
+          answer: "Central Processing Unit",
+        },
+        {
+          question:
+            "Which of the following is not a characteristic of a computer?",
+          choices: ["I.Q.", "Versatility", "Accuracy", "Diligence"],
+          answer: "I.Q.",
+        },
+        {
+          question:
+            "Which of the following is the smallest unit of data in a computer?",
+          choices: ["Bit", "KB", "Nibble", "Byte"],
+          answer: "Bit",
+        },
+        {
+          question:
+            "Which of the following monitor looks like a television and are normally used with non-portable computer systems?",
+          choices: ["LED", "LCD", "CRT", "Flat Panel Monitors"],
+          answer: "CRT",
+        },
+        {
+          question: " Which of the following is not a type of computer code?",
+          choices: ["EDIC", "ASCII", "EBCDIC", "BCD"],
+          answer: "EDIC",
+        },
+        {
+          question:
+            "Which of the following is designed to control the operations of a computer?",
+          choices: [
+            "System Software",
+            "Utility Software",
+            "Application Software",
+            "User",
+          ],
+          answer: "System Software",
+        },
+        {
+          question: " Which of the following is used in EBCDIC?",
+          choices: [
+            "Super Computers",
+            "Mainframes",
+            "Machine Codes",
+            "Programming",
+          ],
+          answer: "Mainframes",
+        },
+      ];
+      let currentQuestion = 0;
+      let score = 0;
+      let question = document.getElementById("question");
+      let choices = document.getElementById("choices");
+      let feedback = document.getElementById("feedback");
+
+      function displayQuestion() {
+        question.innerHTML = questions[currentQuestion].question;
+        let choicesHTML = "";
+        for (let i = 0; i < questions[currentQuestion].choices.length; i++) {
+          choicesHTML += `
+        <li>
+          <label>
+            <input type="radio" name="choice" value="${questions[currentQuestion].choices[i]}">
+            ${questions[currentQuestion].choices[i]}
+          </label>
+        </li>
+      `;
+        }
+        choices.innerHTML = choicesHTML;
+      }
+
+      // function to check the user's answer
+      function checkAnswer() {
+        let userAnswer = document.querySelector('input[name="choice"]:checked');
+        if (!userAnswer) {
+          feedback.innerHTML = "<p>Please select an answer.</p>";
+          return;
+        }
+        if (userAnswer.value === questions[currentQuestion].answer) {
+          feedback.innerHTML = "<p>Correct!</p>";
+          score++;
+        } else {
+          feedback.innerHTML = `<p>Sorry, the correct answer was ${questions[currentQuestion].answer}.</p>`;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          displayQuestion();
+        } else {
+          quiz.innerHTML = `<h2>You scored ${score} out of ${questions.length}.</h2>`;
+        }
+      }
+
+      // display the first question
+      displayQuestion();
+
+      // add event listener to the "Check Answer" button
+      checkButton.addEventListener("click", checkAnswer);
+    </script>
+    <footer>&copy; JavaScript Ninja - <span id="year"></span></footer>
+    <script>
+      // JavaScript code here
+      const yearSpan = document.getElementById("year");
+      const currentYear = new Date().getFullYear();
+      yearSpan.textContent = currentYear;
+    </script>
+  </body>
+</html>
